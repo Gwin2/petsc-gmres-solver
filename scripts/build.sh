@@ -21,21 +21,17 @@ else
     echo "Warning: pkg-config not found. CMake will attempt to find PETSc."
 fi
 
-# Создание директории сборки
-mkdir -p build
-cd build
-
-# Удаление старого кэша CMake, если он существует (для избежания ошибок при смене пути)
-if [ -f CMakeCache.txt ]; then
-    echo "Removing old CMake cache..."
-    rm -f CMakeCache.txt
-    rm -rf CMakeFiles
+# Создание директории сборки (удаляем старую, если существует)
+if [ -d build ]; then
+    echo "Removing old build directory to avoid cache issues..."
+    rm -rf build
 fi
+mkdir -p build
 
-# Конфигурация
-cmake ..
+# Конфигурация (используем явное указание исходной и целевой директорий)
+cmake -S . -B build
 
 # Компиляция
-make -j$(nproc)
+cmake --build build --parallel $(nproc)
 
 echo "Build completed successfully!"
