@@ -96,6 +96,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: petsc-solver-binaries
+        path: .
+
     - name: Set up benchmark environment
       run: |
         sudo apt-get update
@@ -181,6 +187,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: petsc-solver-binaries
+        path: .
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
