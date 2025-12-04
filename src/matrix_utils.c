@@ -118,14 +118,15 @@ PetscErrorCode create_rhs_vector(PetscInt n, Vec *b) {
 
 PetscErrorCode print_matrix_info(Mat A, const char *name) {
     PetscErrorCode ierr;
-    PetscInt m, n, nnz;
+    PetscInt m, n;
     MatType type;
+    MatInfo info;
     
     ierr = MatGetSize(A, &m, &n); CHKERRQ(ierr);
     ierr = MatGetType(A, &type); CHKERRQ(ierr);
-    ierr = MatGetInfo(A, MAT_GLOBAL_SUM, &nnz); CHKERRQ(ierr);
+    ierr = MatGetInfo(A, MAT_GLOBAL_SUM, &info); CHKERRQ(ierr);
     
-    PetscPrintf(PETSC_COMM_WORLD, "Matrix %s: %D x %D, type: %s, nonzeros: %D\n", 
-                name, m, n, type, (PetscInt)nnz);
+    PetscPrintf(PETSC_COMM_WORLD, "Matrix %s: %D x %D, type: %s, nonzeros: %g\n", 
+                name, m, n, type, info.nz_used);
     return 0;
 }

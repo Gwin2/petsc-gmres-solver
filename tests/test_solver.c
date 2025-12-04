@@ -66,7 +66,7 @@ PetscErrorCode test_laplace_system() {
     ierr = VecDuplicate(b, &x); CHKERRQ(ierr);
     
     ierr = solver_create(&solver, A); CHKERRQ(ierr);
-    ierr = solver_set_preconditioner(&solver, PCJACOBI); CHKERRQ(ierr);
+    ierr = solver_set_preconditioner(&solver, PCBJACOBI); CHKERRQ(ierr);
     ierr = solver_setup(&solver); CHKERRQ(ierr);
     
     ierr = solver_solve_with_result(&solver, b, x, &result); CHKERRQ(ierr);
@@ -95,8 +95,8 @@ PetscErrorCode test_preconditioners() {
     Mat A;
     Vec b, x;
     PetscInt n = 300;
-    PCType preconditioners[] = {PCJACOBI, PCILU, PCNONE};
-    const char* pc_names[] = {"Jacobi", "ILU", "None"};
+    PCType preconditioners[] = {PCJACOBI, PCBJACOBI, PCNONE};
+    const char* pc_names[] = {"Jacobi", "Block Jacobi", "None"};
     int num_pc = sizeof(preconditioners) / sizeof(preconditioners[0]);
     
     ierr = create_laplace_matrix(n, &A); CHKERRQ(ierr);

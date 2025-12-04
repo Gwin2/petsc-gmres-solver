@@ -45,7 +45,7 @@ run_benchmark() {
     residual=$(echo "$output" | grep "residual" | awk '{print $NF}' | head -1)
     
     local solve_time
-    solve_time=$(echo "$output" | grep "Solve time" | awk '{print $NF}' | head -1)
+    solve_time=$(echo "$output" | grep "Solve time" | awk '{print $(NF-1)}' | head -1)
     
     # Запись в CSV
     echo "$size,$procs,$pc,$iterations,$residual,$solve_time" >> $RESULTS_FILE
@@ -61,7 +61,7 @@ main_benchmarks() {
     local sizes=(100 500 1000 2000)
     
     # Различные предобуславливатели
-    local preconditioners=("jacobi" "ilu" "none")
+    local preconditioners=("jacobi" "bjacobi" "none")
     
     for size in "${sizes[@]}"; do
         for pc in "${preconditioners[@]}"; do
@@ -87,7 +87,7 @@ preconditioner_benchmarks() {
     info "Starting preconditioner comparison..."
     
     local size=1000
-    local preconditioners=("jacobi" "ilu" "none" "sor" "eisenstat")
+    local preconditioners=("jacobi" "bjacobi" "none" "sor" "eisenstat")
     
     for pc in "${preconditioners[@]}"; do
         run_benchmark $size $PROCS $pc

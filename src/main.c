@@ -38,15 +38,18 @@ int main(int argc, char **argv) {
     Mat A;
     Vec b, x;
     PetscInt matrix_size = 1000;
-    PCType preconditioner = PCJACOBI;
+    char preconditioner[PETSC_MAX_PATH_LEN];
     PetscBool test_mode = PETSC_FALSE, benchmark_mode = PETSC_FALSE;
     
     // Инициализация
     ierr = solver_initialize(argc, argv); CHKERRQ(ierr);
     
+    // Set default preconditioner
+    ierr = PetscStrncpy(preconditioner, PCJACOBI, sizeof(preconditioner)); CHKERRQ(ierr);
+
     // Обработка аргументов командной строки
     ierr = PetscOptionsGetInt(NULL, NULL, "-n", &matrix_size, NULL); CHKERRQ(ierr);
-    ierr = PetscOptionsGetString(NULL, NULL, "-pc_type", preconditioner, PETSC_MAX_PATH_LEN, NULL); CHKERRQ(ierr);
+    ierr = PetscOptionsGetString(NULL, NULL, "-pc_type", preconditioner, sizeof(preconditioner), NULL); CHKERRQ(ierr);
     ierr = PetscOptionsGetBool(NULL, NULL, "-test", &test_mode, NULL); CHKERRQ(ierr);
     ierr = PetscOptionsGetBool(NULL, NULL, "-benchmark", &benchmark_mode, NULL); CHKERRQ(ierr);
     
