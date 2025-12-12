@@ -2,9 +2,9 @@ name: PETSc GMRES Solver CI/CD
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, multi_example_branch, one_example_branch ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
   schedule:
     - cron: '0 2 * * 0'  # Run every Sunday at 2 AM
 
@@ -105,7 +105,7 @@ jobs:
     - name: Set up benchmark environment
       run: |
         sudo apt-get update
-        sudo apt-get install -y mpich libopenblas-dev
+        sudo apt-get install -y mpich libopenblas-dev libpetsc-dev petsc-dev
         pip3 install matplotlib pandas scipy
 
     - name: Run benchmarks
