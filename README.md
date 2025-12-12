@@ -1,10 +1,4 @@
 # 🚀 PETSc GMRES Solver - Параллельный решатель разреженных СЛАУ
-
-[![CI/CD](https://github.com/your-username/petsc-gmres-solver/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/your-username/petsc-gmres-solver/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PETSc](https://img.shields.io/badge/PETSc-3.18%2B-blue)](https://petsc.org/)
-[![MPI](https://img.shields.io/badge/MPI-OpenMPI%2FMPICH-orange)](https://www.open-mpi.org/)
-
 Высокопроизводительный параллельный решатель разреженных систем линейных уравнений с использованием PETSc и метода GMRES. Проект разработан в рамках курса "Параллельное программирование".
 
 ## 📊 Оглавление
